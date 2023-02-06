@@ -143,14 +143,14 @@ int main (int argc, char *argv[]) {
 
 			if (filelen > 0) {
 				printf("(%i bytes)\n", filelen);
-				void *fileContent = malloc( filelen + 1 );
+				unsigned char *fileContent = malloc( filelen + 1 );
 				fread(fileContent, filelen, 1, readfile);
 				fclose(readfile);
-				memcpy ((void *)((unsigned int)fileContent + filelen), "\0", 1);
+				memcpy (fileContent + filelen, "\0", 1);
 				printf ("File analizing... ");
 
-				unsigned char *bmpData = (unsigned char *)fileContent;
-				unsigned char *beginData = (unsigned char *)fileContent;
+				unsigned char *bmpData = fileContent;
+				unsigned char *beginData = fileContent;
 
 				if (*(bmpData) == 'B' && *(bmpData+1) == 'M')  {
 					bmpData += 2;
